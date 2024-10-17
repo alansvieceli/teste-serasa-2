@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "rootDir": "src",
+        "outDir": "build/dist",
+        "module": "esnext",
+        "target": "es5",
+        "lib": ["dom", "dom.iterable", "esnext"],
+        "sourceMap": true,
+        "allowJs": true,
+        "jsx": "react-jsx", // Atualizado para "react-jsx" para melhor compatibilidade com React 17+
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true,
+        "declaration": true,
+        "baseUrl": "./",
+        "paths": {}
+    },
+    "include": ["src", "custom.d.ts", "styled.d.ts"],
+    "exclude": ["node_modules", "./storybook", "dist"],
+    "types": ["typePatches"]
+}
