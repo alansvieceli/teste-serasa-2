@@ -1,5 +1,6 @@
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
+import { FarmerData } from 'src/services'
 
 const tabSlice = createSlice({
     name: 'tabs',
@@ -9,11 +10,22 @@ const tabSlice = createSlice({
     },
 })
 
+const farmersSlice = createSlice({
+    name: 'farmers',
+    initialState: [] as FarmerData[],
+    reducers: {
+        setFarmersData: (state, action: PayloadAction<FarmerData[]>) => action.payload,
+        removeFarmer: (state, action: PayloadAction<string>) => state.filter(farmer => farmer.id !== action.payload),
+    },
+})
+
 export const { setActiveTab } = tabSlice.actions
+export const { setFarmersData, removeFarmer } = farmersSlice.actions
 
 const store = configureStore({
     reducer: {
         tabs: tabSlice.reducer,
+        farmers: farmersSlice.reducer,
     },
 })
 
