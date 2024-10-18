@@ -1,5 +1,5 @@
 -- Criando o banco de dados
-CREATE DATABASE "test-serasa";
+CREATE DATABASE "test-serasa-dois";
 
 \c "test-serasa-dois";
 
