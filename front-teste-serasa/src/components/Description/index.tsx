@@ -4,9 +4,9 @@ import { formatNumber } from 'src/utils'
 
 interface DescriptionProps {
     label1: string
-    value1: string
+    value1?: string
     label2: string
-    value2: string
+    value2?: string
 }
 
 const DescriptionComponent: React.FC<DescriptionProps> = ({ label1, value1, label2, value2 }) => {
@@ -16,7 +16,7 @@ const DescriptionComponent: React.FC<DescriptionProps> = ({ label1, value1, labe
                 {label1}: <DescriptionValue>{value1}</DescriptionValue>
             </DescriptionText>
             <DescriptionText>
-                {label2}: <DescriptionValue>{formatNumber(value2)}ha</DescriptionValue>
+                {label2}: <DescriptionValue>{value2 ? formatNumber(value2) : 0}ha</DescriptionValue>
             </DescriptionText>
         </DescriptionContainer>
     )

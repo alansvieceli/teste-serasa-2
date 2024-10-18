@@ -18,8 +18,8 @@ export interface DashboardData {
     totalArea: string
     farmsByState: Array<ValueByState>
     areaByState: Array<ValueByState>
-    farmsByCropsplanted: Array<ValueByCrop>
-    areaByCropsplante: Array<ValueByCrop>
+    farmsByCropsPlanted: Array<ValueByCrop>
+    areaByCropsPlanted: Array<ValueByCrop>
     landUse: LandUse
 }
 
@@ -37,46 +37,31 @@ export interface FarmerData {
     id: string
 }
 
-export const fetchDashboardData = async (): Promise<DashboardData> => {
-    const API_URL = process.env.REACT_APP_API_URL
+const API_URL = process.env.REACT_APP_API_URL
 
-    if (!API_URL) {
-        throw new Error('A URL da API não está definida nas variáveis de ambiente')
-    }
+if (!API_URL) {
+    throw new Error('A URL da API não está definida nas variáveis de ambiente')
+}
 
+const fetchData = async <T>(endpoint: string): Promise<T> => {
     try {
-        const response = await fetch(`${API_URL}/dashboard`)
+        const response = await fetch(`${API_URL}/${endpoint}`)
 
         if (!response.ok) {
-            throw new Error('Erro ao buscar os dados do dashboard')
+            throw new Error(`Erro ao buscar dados de ${endpoint}`)
         }
 
-        const result: DashboardData = await response.json()
-        return result
+        return await response.json()
     } catch (error) {
-        console.error('Erro ao buscar dados do dashboard:', error)
+        console.error(`Erro ao buscar dados de ${endpoint}:`, error)
         throw error
     }
 }
 
+export const fetchDashboardData = async (): Promise<DashboardData> => {
+    return await fetchData<DashboardData>('dashboard')
+}
+
 export const fetchFarmsData = async (): Promise<Array<FarmerData>> => {
-    const API_URL = process.env.REACT_APP_API_URL
-
-    if (!API_URL) {
-        throw new Error('A URL da API não está definida nas variáveis de ambiente')
-    }
-
-    try {
-        const response = await fetch(`${API_URL}/farmer`)
-
-        if (!response.ok) {
-            throw new Error('Erro ao buscar os dados do agricultor')
-        }
-
-        const result: Array<FarmerData> = await response.json()
-        return result
-    } catch (error) {
-        console.error('Erro ao buscar dados do agricultor:', error)
-        throw error
-    }
+    return await fetchData<Array<FarmerData>>('farmer')
 }

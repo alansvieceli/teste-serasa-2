@@ -10,7 +10,7 @@ interface PieChartProps {
     is3D?: boolean
 }
 
-const PieChartExample: React.FC<PieChartProps> = ({
+const PieChart: React.FC<PieChartProps> = ({
     data,
     title,
     subTitle,
@@ -31,4 +31,4 @@ const PieChartExample: React.FC<PieChartProps> = ({
     )
 }
 
-export default PieChartExample
+export default PieChart
