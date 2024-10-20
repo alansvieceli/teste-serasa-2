@@ -77,6 +77,21 @@ const fetchData = async <T>(endpoint: string): Promise<T> => {
     }
 }
 
+const fetchDataURL = async <T>(url: string): Promise<T> => {
+    try {
+        const response = await fetch(url)
+
+        if (!response.ok) {
+            throw new Error(`Erro ao buscar dados de ${url}`)
+        }
+
+        return (await response.json()) as T
+    } catch (error) {
+        console.error(`Erro ao buscar dados de ${url}:`, error)
+        throw error
+    }
+}
+
 const deleteData = async (endpoint: string, id: string): Promise<void> => {
     try {
         const response = await fetch(`${API_URL}/${endpoint}/${id}`, {
@@ -92,7 +107,7 @@ const deleteData = async (endpoint: string, id: string): Promise<void> => {
     }
 }
 
-const patchData = async <T>(endpoint: string, id: string, data: T): Promise<boolean> => {
+const patchData = async <T, R>(endpoint: string, id: string, data: T): Promise<R> => {
     try {
         const response = await fetch(`${API_URL}/${endpoint}/${id}`, {
             method: 'PATCH',
@@ -106,17 +121,15 @@ const patchData = async <T>(endpoint: string, id: string, data: T): Promise<bool
             throw new Error(`Erro ao atualziar dados ${endpoint}/${id}`)
         }
 
-        return response.ok
+        return response.json()
     } catch (error) {
         console.error(`Erro ao atualziar dados ${endpoint}/${id}:`, error)
         throw error
     }
 }
 
-const postData = async <T>(endpoint: string, data: T): Promise<boolean> => {
+const postData = async <T, R>(endpoint: string, data: T): Promise<R> => {
     try {
-        console.log(JSON.stringify(data))
-
         const response = await fetch(`${API_URL}/${endpoint}`, {
             method: 'POST',
             headers: {
@@ -125,11 +138,16 @@ const postData = async <T>(endpoint: string, data: T): Promise<boolean> => {
             body: JSON.stringify(data),
         })
 
-        if (response.status !== 201) {
+        if (!response.ok) {
             throw new Error(`Erro ao atualziar dados ${endpoint}`)
         }
+        const location = response.headers.get('Location')
 
-        return response.status === 201
+        if (!location) {
+            throw new Error('Cabeçalho Location não encontrado.')
+        }
+
+        return fetchDataURL<R>(`${location}`)
     } catch (error) {
         console.error(`Erro ao atualziar dados ${endpoint}:`, error)
         throw error
@@ -148,7 +166,7 @@ export const deleteFarmer = async (id: string): Promise<void> => {
     await deleteData('farmer', id)
 }
 
-export const updateFarmer = async (data: FarmerData): Promise<boolean> => {
+export const updateFarmer = async (data: FarmerData): Promise<FarmerData> => {
     const updateData: FarmerUpdateData = {
         documentType: data.documentType,
         document: removeNonNumeric(data.document),
@@ -163,8 +181,8 @@ export const updateFarmer = async (data: FarmerData): Promise<boolean> => {
     }
 
     if (data.id.trim() === '') {
-        return await postData<FarmerUpdateData>('farmer', updateData)
+        return await postData<FarmerUpdateData, FarmerData>('farmer', updateData)
     } else {
-        return await patchData<FarmerUpdateData>('farmer', data.id, updateData)
+        return await patchData<FarmerUpdateData, FarmerData>('farmer', data.id, updateData)
     }
 }

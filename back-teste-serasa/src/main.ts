@@ -40,9 +40,10 @@ async function bootstrap() {
     app.useGlobalFilters(new AllExceptionsFilter());
 
     const corsOptions: CorsOptions = {
-        origin: 'http://localhost:3000', // Permitir apenas a origem http://localhost:3000
-        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Permitir todos os métodos
-        credentials: true, // Se necessário para permitir cookies e autenticação
+        origin: 'http://localhost:3000',
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        credentials: true,
+        exposedHeaders: ['Location'],
     };
 
     app.enableCors(corsOptions);

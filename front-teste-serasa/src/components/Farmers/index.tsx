@@ -87,14 +87,16 @@ const Farmers: React.FC = () => {
     }
 
     const handleEditSubmit = (updatedFarm: FarmerData) => {
-        const loadFarmerData = async () => fetchData()
-        if (updatedFarm.id === '') {
-            console.log('asasas')
-            loadFarmerData()
+        const farmIndex = farmers.findIndex(f => f.id === updatedFarm.id)
+
+        let updatedFarmers
+
+        if (farmIndex !== -1) {
+            updatedFarmers = [...farmers.slice(0, farmIndex), updatedFarm, ...farmers.slice(farmIndex + 1)]
         } else {
-            const updatedFarmers = farmers.map(f => (f.id === updatedFarm.id ? updatedFarm : f))
-            dispatch(setFarmersData(updatedFarmers))
+            updatedFarmers = [...farmers, updatedFarm]
         }
+        dispatch(setFarmersData(updatedFarmers))
         setIsModalOpen(false)
         toast.success('Dados Salvos!!!')
     }
