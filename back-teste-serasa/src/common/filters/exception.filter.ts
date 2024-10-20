@@ -23,7 +23,7 @@ export class UniqueConstraintExceptionFilter implements ExceptionFilter {
                 timestamp: new Date().toISOString(),
                 path: request.url,
                 message:
-                    'O documento, nome da fazenda, cidade ou UF já existe no sistema. Por favor, verifique seus dados.',
+                    'Esse documento, nome da fazenda já existe no sistema. Por favor, verifique seus dados.',
             });
         }
 

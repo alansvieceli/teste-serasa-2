@@ -139,7 +139,8 @@ const postData = async <T, R>(endpoint: string, data: T): Promise<R> => {
         })
 
         if (!response.ok) {
-            throw new Error(`Erro ao atualziar dados ${endpoint}`)
+            const errorBody = await response.json()
+            throw new Error(errorBody.message)
         }
         const location = response.headers.get('Location')
 
@@ -149,7 +150,7 @@ const postData = async <T, R>(endpoint: string, data: T): Promise<R> => {
 
         return fetchDataURL<R>(`${location}`)
     } catch (error) {
-        console.error(`Erro ao atualziar dados ${endpoint}:`, error)
+        console.error(error)
         throw error
     }
 }

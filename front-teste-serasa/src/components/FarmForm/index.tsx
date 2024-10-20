@@ -83,9 +83,8 @@ const FarmForm: React.FC<EditFarmFormProps> = ({ data, onSubmit, onClose }) => {
         try {
             const data = await updateFarmer(formData)
             onSubmit(data)
-            toast.success('Dados salvos com sucesso!')
         } catch (error) {
-            toast.error('Erro ao salvar dados.')
+            toast.error(error?.message)
         }
     }
 
