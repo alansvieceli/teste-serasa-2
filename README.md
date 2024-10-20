@@ -84,23 +84,22 @@ curl --location  --request POST 'localhost:3002/api/v1/farmer' \
 Para buscar todos os registros. Certifique-se de substituir o valor de Authorization pelo seu token:
 
 ```bash
-curl --location --request GET 'http://curl --location 'http://localhost:3002/api/v1/farmer' \
---header 'Authorization: ••••••'
+curl --location --request GET 'http://localhost:3002/api/v1/farmer' \
+--header 'Authorization: Bearer *******'
 ```
 
 Para buscar um registro especifico. Certifique-se de substituir o valor de Authorization pelo seu token:
 
 ```bash
-curl --location --request GET 'http://localhost:3002/api/v1/farmer/6acce615-8a5d-4f66-87c2-ef5353884c32' \
---header 'Authorization: ••••••'
-
+curl --location --request GET 'http://localhost:3002/api/v1/farmer' \
+--header 'Authorization: Bearer *******'
 ```
 
 Para excluir um registro especifico. Certifique-se de substituir o valor de Authorization pelo seu token:
 
 ```bash
 curl --location --request DELETE 'http://localhost:3002/api/v1/farmer/6acce615-8a5d-4f66-87c2-ef5353884c32' \
---header 'Authorization: ••••••'
+--header 'Authorization: Bearer ••••••'
 ```
 
 Para editar um registro especifico. Certifique-se de substituir o valor de Authorization pelo seu token:
@@ -108,7 +107,7 @@ Para editar um registro especifico. Certifique-se de substituir o valor de Autho
 ```bash
 curl --location --request PUT 'http://localhost:3002/api/v1/farmer/66226226-b69f-4e6b-b012-8ade2e48298a' \
 --header 'Content-Type: application/json' \
---header 'Authorization: ••••••' \
+--header 'Authorization: Bearer ••••••' \
 --data '{
     "documentType": "CPF",
     "document": "98930710034",
