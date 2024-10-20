@@ -14,7 +14,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <Container>
             <Header>
                 <HeaderContent>
-                    <Title>Teste Serasa</Title>
+                    <Title>Teste Serasa - Simples Conferência</Title>
                     <Name>Olá, Usuário</Name>
                 </HeaderContent>
             </Header>

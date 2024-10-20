@@ -1,12 +1,15 @@
-import { BadRequestException, Controller, Get } from '@nestjs/common';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { BadRequestException, Controller, Get, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { DashboardService } from '../services/dashboard.service';
 import { DashboardsDto } from '../dtos/dashboard.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller({
     path: 'dashboard',
     version: '1',
 })
+@UseGuards(AuthGuard('jwt'))
+@ApiBearerAuth()
 @ApiTags('Dashboard')
 export class DashboardController {
     constructor(private readonly dashboardService: DashboardService) {}

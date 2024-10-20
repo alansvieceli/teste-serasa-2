@@ -54,8 +54,6 @@ const FarmForm: React.FC<EditFarmFormProps> = ({ data, onSubmit, onClose }) => {
         const documentType = formData.documentType
         const document = formData.document
 
-        console.log(`-- ${documentType}, ${document} --`)
-
         if (documentType === 'CPF' && !cpf.isValid(document)) {
             toast.error('CPF inválido.')
             return false

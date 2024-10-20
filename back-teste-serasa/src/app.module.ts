@@ -6,8 +6,10 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
-import { seconds, ThrottlerModule } from '@nestjs/throttler';
+import { seconds, ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { Dashboard } from '@modules/dashboard/dashboard.module';
+import { TokenModule } from '@modules/token/token.module';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
     imports: [
@@ -29,8 +31,14 @@ import { Dashboard } from '@modules/dashboard/dashboard.module';
         HealthModule,
         Farmer,
         Dashboard,
+        TokenModule,
     ],
     controllers: [],
-    providers: [],
+    providers: [
+        {
+            provide: APP_GUARD,
+            useClass: ThrottlerGuard,
+        },
+    ],
 })
 export class AppModule {}

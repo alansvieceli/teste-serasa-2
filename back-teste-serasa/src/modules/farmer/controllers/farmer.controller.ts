@@ -8,20 +8,24 @@ import {
     Patch,
     Post,
     Put,
+    UseGuards,
     UseInterceptors,
 } from '@nestjs/common';
 import { LocationInterceptor } from '@common/interceptors/location.interceptor';
 import { FarmerService } from '../services/farmer.service';
 import { FarmerCreateDto } from '../dtos/farmer.create.dto';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { FarmerDto } from '../dtos/farmer.dto';
 import { UUIDValidationPipe } from '@common/pipes/uuid.validator.pipe';
 import { FarmerUpdateDto } from '../dtos/farmer.update.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller({
     path: 'farmer',
     version: '1',
 })
+@UseGuards(AuthGuard('jwt'))
+@ApiBearerAuth()
 @ApiTags('Farmer / CRUD')
 export class FarmerController {
     constructor(private readonly ruralProducerService: FarmerService) {}

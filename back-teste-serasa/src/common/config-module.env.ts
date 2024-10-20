@@ -10,4 +10,6 @@ export const ConfigEnv = Joi.object({
     PG_PASSWORD: Joi.string().default('postgres'),
     PG_DATABASE: Joi.string().default('test-serasa-dois'),
     PG_SCHEMA: Joi.string().default('serasa'),
+    JWT_SECRET: Joi.string().default('9nqFiH9DkCKceayq7xyJpdKg595'),
+    JWT_EXPIRES_IN: Joi.string().default('5m'),
 });

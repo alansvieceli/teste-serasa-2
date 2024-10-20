@@ -19,13 +19,30 @@ const farmersSlice = createSlice({
     },
 })
 
+const authSlice = createSlice({
+    name: 'auth',
+    initialState: {
+        token: '',
+    },
+    reducers: {
+        setToken: (state, action: PayloadAction<string>) => {
+            state.token = action.payload
+        },
+        clearToken: state => {
+            state.token = ''
+        },
+    },
+})
+
 export const { setActiveTab } = tabSlice.actions
 export const { setFarmersData, removeFarmer } = farmersSlice.actions
+export const { setToken, clearToken } = authSlice.actions
 
 const store = configureStore({
     reducer: {
         tabs: tabSlice.reducer,
         farmers: farmersSlice.reducer,
+        auth: authSlice.reducer,
     },
 })
 
