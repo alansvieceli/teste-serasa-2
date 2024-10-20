@@ -1,29 +1,131 @@
-## O que foi implementado
+# Descrição do Projeto
 
-Teste para vaga de desenvolvedor back-end, nãofoi solicitado fazer o front, mas acabei fazerndo pra facilitar a visualização dos graficos
+Este projeto foi desenvolvido como parte de um teste para a vaga de desenvolvedor back-end. Embora o foco fosse o desenvolvimento do back-end, implementei também um front-end para facilitar a visualização dos gráficos gerados pela aplicação.
 
-### Subir a Aplicação
+### Tecnologias Utilizadas
+
+- Back-end: NestJS
+- Front-end: React
+- Banco de Dados: PostgreSQL
+- Containerização: Docker e Docker Compose
+
+### Como Executar a Aplicação
+
+Para executar a aplicação, siga os passos abaixo:
+
+1. Certifique-se de ter o Docker e o Docker Compose instalados em sua máquina.
+2. No diretório raiz do projeto, execute o seguinte comando:
 
 ```bash
   docker-compose up --build
 ```
 
-Isso vai subir
+Esse comando irá construir e iniciar os seguintes serviços:
 
-- Postgresql
-- Back-end - NestJS
-- Front-end - React
+1. PostgreSQL: Banco de dados relacional
+2. Back-end: API REST desenvolvida com NestJS
+3. Front-end: Aplicação React para visualização dos dados
 
-### Swagger (back-end)
+### Acessando a Aplicação
+
+#### Swagger (Documentação da API)
+
+A documentação da API pode ser acessada via Swagger na URL abaixo:
 
 ```http
-  http://localhost:3002/swagger
+http://localhost:3002/swagger
 ```
 
-### Front - end
+#### Front-end
+
+A aplicação front-end pode ser acessada no navegador através do seguinte endereço:
 
 ```http
-  http://localhost:3000
+http://localhost:3000
+```
+
+#### Endpoints do backend
+
+Autenticação (Obter Token)
+
+```bash
+curl --location 'http://localhost:3002/api/v1/auth/login' \
+--header 'Content-Type: application/json' \
+--data '{
+    "apiKey": "nWLrhNbNlUrpC7UZy5H5atSq"
+}'
+```
+
+Para inserir um novo registro, utilize o endpoint abaixo. Certifique-se de substituir o valor de Authorization pelo seu token:
+
+```bash
+curl --location POST 'localhost:3002/api/v1/farmer' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: ••••••' \
+--data '{
+    "documentType": "CPF",
+    "document": "04254363060",
+    "farmerName": "ALAN SILVA VIECELI",
+    "farmName": "ALAN SILVA VIECELI",
+    "city": "Porto Alegre",
+    "stateCode": "RS",
+    "totalArea": 34,
+    "arableArea": 12,
+    "vegetationArea": 2,
+    "cropsPlanted": [
+
+            "MILHO",
+            "CANA_ACUCAR"
+
+        ]
+}'
+```
+
+Para buscar todos os registros. Certifique-se de substituir o valor de Authorization pelo seu token:
+
+```bash
+curl --location --request GET 'http://curl --location 'http://localhost:3002/api/v1/farmer' \
+--header 'Authorization: ••••••'
+```
+
+Para buscar um registro especifico. Certifique-se de substituir o valor de Authorization pelo seu token:
+
+```bash
+curl --location 'http://localhost:3002/api/v1/farmer/6acce615-8a5d-4f66-87c2-ef5353884c32' \
+--header 'Authorization: ••••••'
+
+```
+
+Para excluir um registro especifico. Certifique-se de substituir o valor de Authorization pelo seu token:
+
+```bash
+curl --location DELETE 'http://localhost:3002/api/v1/farmer/6acce615-8a5d-4f66-87c2-ef5353884c32' \
+--header 'Authorization: ••••••'
+```
+
+Para editar um registro especifico. Certifique-se de substituir o valor de Authorization pelo seu token:
+
+```bash
+curl --location --request PUT 'http://localhost:3002/api/v1/farmer/66226226-b69f-4e6b-b012-8ade2e48298a' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: ••••••' \
+--data '{
+    "documentType": "CPF",
+    "document": "98930710034",
+    "farmerName": "ALAN SILVA VIECELI XXX",
+    "farmName": "ALAN SILVA VIECELI",
+    "city": "Porto Alegre",
+    "stateCode": "RS",
+    "totalArea": 34,
+    "arableArea": 12,
+    "vegetationArea": 2.3,
+    "cropsPlanted": [
+        "SOJA",
+        "ALGODAO"
+
+
+    ]
+}'
 ```
 
 ---

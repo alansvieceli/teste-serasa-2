@@ -14,34 +14,34 @@ services:
     networks:
       - app-network
       
-  # app-back:
-  #   build:
-  #     context: ../back-teste-serasa
-  #     dockerfile: ./Dockerfile
-  #   container_name: nestjs_app
-  #   ports:
-  #     - "3002:3002"
-  #   environment:
-  #     PG_HOST: postgres
-  #     NODE_ENV: test
-  #   depends_on:
-  #     - postgres
-  #   networks:
-  #     - app-network
+  app-back:
+    build:
+      context: ../back-teste-serasa
+      dockerfile: ./Dockerfile
+    container_name: nestjs_app
+    ports:
+      - "3002:3002"
+    environment:
+      PG_HOST: postgres
+      NODE_ENV: test
+    depends_on:
+      - postgres
+    networks:
+      - app-network
       
-  # app-front:
-  #   build:
-  #     context: ../front-teste-serasa
-  #     dockerfile: ./Dockerfile
-  #   container_name: react_app
-  #   ports:
-  #     - "3000:80" 
-  #   environment:
-  #     REACT_APP_API_URL: http://app-back:3002/api/v1 
-  #   depends_on:
-  #     - app-back
-  #   networks:
-  #     - app-network
+  app-front:
+    build:
+      context: ../front-teste-serasa
+      dockerfile: ./Dockerfile
+    container_name: react_app
+    ports:
+      - "3000:80" 
+    environment:
+      REACT_APP_API_URL: http://app-back:3002/api/v1 
+    depends_on:
+      - app-back
+    networks:
+      - app-network
 
 
 networks:
