@@ -59,7 +59,7 @@ curl --location 'http://localhost:3002/api/v1/auth/login' \
 Para inserir um novo registro, utilize o endpoint abaixo. Certifique-se de substituir o valor de Authorization pelo seu token:
 
 ```bash
-curl --location POST 'localhost:3002/api/v1/farmer' \
+curl --location  --request POST 'localhost:3002/api/v1/farmer' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: ••••••' \
 --data '{
@@ -91,7 +91,7 @@ curl --location --request GET 'http://curl --location 'http://localhost:3002/api
 Para buscar um registro especifico. Certifique-se de substituir o valor de Authorization pelo seu token:
 
 ```bash
-curl --location 'http://localhost:3002/api/v1/farmer/6acce615-8a5d-4f66-87c2-ef5353884c32' \
+curl --location --request GET 'http://localhost:3002/api/v1/farmer/6acce615-8a5d-4f66-87c2-ef5353884c32' \
 --header 'Authorization: ••••••'
 
 ```
@@ -99,7 +99,7 @@ curl --location 'http://localhost:3002/api/v1/farmer/6acce615-8a5d-4f66-87c2-ef5
 Para excluir um registro especifico. Certifique-se de substituir o valor de Authorization pelo seu token:
 
 ```bash
-curl --location DELETE 'http://localhost:3002/api/v1/farmer/6acce615-8a5d-4f66-87c2-ef5353884c32' \
+curl --location --request DELETE 'http://localhost:3002/api/v1/farmer/6acce615-8a5d-4f66-87c2-ef5353884c32' \
 --header 'Authorization: ••••••'
 ```
 
