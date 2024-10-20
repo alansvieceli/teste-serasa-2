@@ -3,6 +3,9 @@ import { useForm } from 'react-hook-form'
 import {
     Button,
     ButtonGroup,
+    CheckboxGroup,
+    CheckboxLabel,
+    CheckboxWrapper,
     CloseButton,
     ErrorMessage,
     FieldGroup,
@@ -27,7 +30,7 @@ type FarmerData = {
     totalArea: number
     arableArea: number
     vegetationArea: number
-    cropsPlanted: string
+    cropsPlanted: string[]
     id: string
     createdAt?: string
 }
@@ -133,7 +136,7 @@ const FarmForm: React.FC<EditFarmFormProps> = ({ data, onSubmit, onClose }) => {
                         {...register('document', {
                             required: 'O Documento é obrigatório.',
                         })}
-                        maxLength={11}
+                        maxLength={30}
                         onKeyDown={e => {
                             if (!/[0-9]/.test(e.key) && e.key !== 'Backspace' && e.key !== 'Tab') {
                                 e.preventDefault()
@@ -260,18 +263,20 @@ const FarmForm: React.FC<EditFarmFormProps> = ({ data, onSubmit, onClose }) => {
             </HorizontalFieldGroup>
             <FieldGroup>
                 <Label>Plantações</Label>
-                <Select
-                    hasError={!!errors.cropsPlanted}
-                    {...register('cropsPlanted', {
-                        required: 'Selecione uma Plantação.',
-                    })}
-                >
-                    <option value="SOJA">Soja</option>
-                    <option value="MILHO">Milho</option>
-                    <option value="ALGODAO">Algodão</option>
-                    <option value="CAFE">Café</option>
-                    <option value="CANA_ACUCAR">Cana-de-Açúcar</option>
-                </Select>
+                <CheckboxGroup>
+                    {['SOJA', 'MILHO', 'ALGODAO', 'CAFE', 'CANA_ACUCAR'].map(crop => (
+                        <CheckboxWrapper key={crop}>
+                            <input
+                                type="checkbox"
+                                value={crop}
+                                {...register('cropsPlanted', {
+                                    validate: value => (value && value.length > 0) || 'Selecione pelo menos uma plantação.',
+                                })}
+                            />
+                            <CheckboxLabel>{crop}</CheckboxLabel>
+                        </CheckboxWrapper>
+                    ))}
+                </CheckboxGroup>
                 {errors.cropsPlanted && <ErrorMessage>{errors.cropsPlanted.message}</ErrorMessage>}
             </FieldGroup>
             <ButtonGroup>

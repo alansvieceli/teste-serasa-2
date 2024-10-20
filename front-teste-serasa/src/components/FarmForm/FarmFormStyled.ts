@@ -84,3 +84,19 @@ export const CloseButton = styled(Button)`
         background-color: #e53935;
     }
 `
+export const CheckboxGroup = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+`
+
+export const CheckboxWrapper = styled.div`
+    display: flex;
+    align-items: center;
+`
+
+export const CheckboxLabel = styled.label`
+    margin-left: 8px;
+    font-size: 1rem;
+    color: #333;
+`

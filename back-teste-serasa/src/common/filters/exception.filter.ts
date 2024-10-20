@@ -27,7 +27,6 @@ export class UniqueConstraintExceptionFilter implements ExceptionFilter {
             });
         }
 
-        // Retorno padrão para outras exceções
         return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
             statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
             timestamp: new Date().toISOString(),
@@ -45,7 +44,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
         const request = ctx.getRequest<Request>();
 
         const message =
-            exception instanceof HttpException ? exception.getResponse() : exception.message || 'Bad Request'; // Pegando a mensagem corretamente
+            exception instanceof HttpException ? exception.getResponse() : exception.message || 'Bad Request';
 
         response.status(HttpStatus.BAD_REQUEST).json({
             statusCode: HttpStatus.BAD_REQUEST,

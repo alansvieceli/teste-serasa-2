@@ -22,6 +22,14 @@ export const Table = styled.table`
     tr:nth-child(even) {
         background-color: #f9f9f9;
     }
+
+    tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    tr:hover {
+        background-color: #e0e0e0;
+    }
 `
 
 export const ButtonAdd = styled.button`

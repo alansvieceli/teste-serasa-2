@@ -18,7 +18,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
             database: this.configService.get<string>('PG_DATABASE'),
             entities: [FarmerEntity],
             ssl: false,
-            logging: false,
+            logging: true,
             schema: this.configService.get<string>('PG_SCHEMA'),
             namingStrategy: new SnakeNamingStrategy(),
         };

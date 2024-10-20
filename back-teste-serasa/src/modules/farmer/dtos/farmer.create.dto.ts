@@ -1,11 +1,22 @@
-import { IsEnum, IsNotEmpty, IsNumber, IsString, Length, Matches, Min } from 'class-validator';
+import {
+    ArrayNotEmpty,
+    IsArray,
+    IsEnum,
+    IsIn,
+    IsNotEmpty,
+    IsNumber,
+    IsString,
+    Length,
+    Matches,
+    Min,
+} from 'class-validator';
 import { DocumentTypeEnum } from '@common/enums/document_type.enum';
 import { StateCodeEnum } from '@common/enums/state.code.enum';
-import { CropsPlantedEnum } from '@common/enums/crops.planted.enum';
 import { IsLessThanTotalArea } from '@common/validators/total.area.validator';
 import { IsCPFOrCNPJ } from '@common/validators/documents.validator';
 import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
+import { IsArrayUnique } from '@common/validators/array.unique.validator';
 
 export class FarmerCreateDto {
     constructor(partial?: Partial<FarmerCreateDto>) {
@@ -16,7 +27,7 @@ export class FarmerCreateDto {
 
     @ApiProperty({
         required: true,
-        enumName: 'DocumentTypeEnum', // Nome do enum que aparecerá no Swagger
+        enumName: 'DocumentTypeEnum',
         enum: DocumentTypeEnum,
     })
     @AutoMap()
@@ -70,7 +81,7 @@ export class FarmerCreateDto {
 
     @ApiProperty({
         required: true,
-        enumName: 'StateCodeEnum', // Nome do enum que aparecerá no Swagger
+        enumName: 'StateCodeEnum',
         enum: StateCodeEnum,
     })
     @AutoMap()
@@ -113,13 +124,20 @@ export class FarmerCreateDto {
 
     @ApiProperty({
         required: true,
-        enumName: 'CropsPlantedEnum', // Nome do enum que aparecerá no Swagger
-        enum: CropsPlantedEnum,
+        isArray: true,
+        example: ['SOJA', 'MILHO', 'ALGODAO', 'CAFE', 'CANA_ACUCAR'],
     })
     @AutoMap()
-    @IsEnum(CropsPlantedEnum, {
-        message: `A cultura plantada (cropsPlanted) deve ser um valor válido [${Object.values(CropsPlantedEnum).join(', ')}]`,
+    @IsArray({ message: 'A cultura plantada (cropsPlanted) deve ser uma lista de valores' })
+    @ArrayNotEmpty({ message: 'A lista de culturas plantadas (cropsPlanted) não pode estar vazia' })
+    @IsIn(['SOJA', 'MILHO', 'ALGODAO', 'CAFE', 'CANA_ACUCAR'], {
+        each: true,
+        message:
+            'A cultura plantada (cropsPlanted) deve conter valores válidos: SOJA, MILHO, ALGODAO, CAFE, CANA_ACUCAR',
     })
-    @IsNotEmpty({ message: 'A cultura plantada (cropsPlanted é obrigatória)' })
-    cropsPlanted: CropsPlantedEnum;
+    @IsNotEmpty({ message: 'A cultura plantada (cropsPlanted) é obrigatória' })
+    @IsArrayUnique({
+        message: 'A lista de culturas plantadas (cropsPlanted) não pode conter valores duplicados',
+    })
+    cropsPlanted: string[];
 }

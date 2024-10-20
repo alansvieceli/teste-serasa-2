@@ -24,7 +24,9 @@ export class FarmerService {
     }
 
     async create(farmerCreateDto: FarmerCreateDto): Promise<UUID> {
+        console.log(farmerCreateDto);
         const farmerEntity = this.mapper.map(farmerCreateDto, FarmerCreateDto, FarmerEntity);
+        console.log(farmerEntity);
         const insertResult = await this.farmerPostgresqlService.insert(farmerEntity);
         console.log(`1. ${insertResult}`);
         return insertResult.identifiers[0].id;

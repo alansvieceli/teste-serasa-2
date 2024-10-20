@@ -4,7 +4,7 @@ import PieChart from '../PieChart'
 import DescriptionComponent from '../Description'
 import { DashboardData, ValueByCrop, ValueByState, fetchDashboardData } from 'src/services'
 import StatusMessage from '../StatusMessage'
-import { formatNumber, getFriendlyCropName } from 'src/utils'
+import { getFriendlyCropName } from 'src/utils'
 import Loading from '../Loading'
 
 const Dashboard: React.FC = () => {
@@ -13,9 +13,7 @@ const Dashboard: React.FC = () => {
     const [error, setError] = useState<string | null>(null)
 
     const [farmsByStateData, setFarmsByStateData] = useState<(string | number)[][]>([])
-    const [areaByStateData, setAreaByStateData] = useState<(string | number)[][]>([])
     const [farmsByCropsplantedData, setFarmsByCropsplantedData] = useState<(string | number)[][]>([])
-    const [areaByCropsplanteData, setAreaByCropsplanteData] = useState<(string | number)[][]>([])
     const [landUseData, setLandUseData] = useState<(string | number)[][]>([])
 
     useEffect(() => {
@@ -47,14 +45,6 @@ const Dashboard: React.FC = () => {
         )
         setFarmsByStateData(farmsByStateData)
 
-        const areaByStateData = createChartData(
-            ['Estado', 'Área'],
-            data?.areaByState || [],
-            (item: ValueByState) => `${item.state} - ${formatNumber(item.count)}ha`,
-            'count',
-        )
-        setAreaByStateData(areaByStateData)
-
         const farmsByCropsplantedData = createChartData(
             ['Cultura', 'Fazendas'],
             data?.farmsByCropsPlanted || [],
@@ -62,14 +52,6 @@ const Dashboard: React.FC = () => {
             'count',
         )
         setFarmsByCropsplantedData(farmsByCropsplantedData)
-
-        const areaByCropsplanteData = createChartData(
-            ['Cultura', 'Área'],
-            data?.areaByCropsPlanted || [],
-            (item: ValueByCrop) => `${getFriendlyCropName(item.crop)} - ${formatNumber(item.count)}ha`,
-            'count',
-        )
-        setAreaByCropsplanteData(areaByCropsplanteData)
 
         const landUseData = [
             ['', ''],
@@ -98,13 +80,7 @@ const Dashboard: React.FC = () => {
                     <GridContainer>
                         {[
                             { data: farmsByStateData, title: 'Quantidade de Fazendas', subTitle: 'Por estado' },
-                            { data: areaByStateData, title: 'Quantidade de Hectares (Área Total)', subTitle: 'Por estado' },
                             { data: farmsByCropsplantedData, title: 'Quantidade de Fazendas', subTitle: 'Por cultura' },
-                            {
-                                data: areaByCropsplanteData,
-                                title: 'Quantidade de Hectares (Área Agrícultável)',
-                                subTitle: 'Por cultura',
-                            },
                             { data: landUseData, title: 'Uso de solo (Área agricultável e vegetação)', subTitle: '' },
                         ].map((chart, index) => (
                             <GridItem key={index}>

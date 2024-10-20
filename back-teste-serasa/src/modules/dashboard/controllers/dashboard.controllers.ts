@@ -20,21 +20,11 @@ export class DashboardController {
     })
     async getFarmsSummary(): Promise<DashboardsDto> {
         try {
-            const [
-                totalFarms,
-                totalArea,
-                farmsByState,
-                areaByState,
-                farmsByCropsPlanted,
-                areaByCropsPlanted,
-                landUse,
-            ] = await Promise.all([
+            const [totalFarms, totalArea, farmsByState, farmsByCropsPlanted, landUse] = await Promise.all([
                 this.dashboardService.countFarms(),
                 this.dashboardService.sumTotalArea(),
                 this.dashboardService.farmsByState(),
-                this.dashboardService.areaByState(),
                 this.dashboardService.farmsByCropsPlanted(),
-                this.dashboardService.areaByCropsPlanted(),
                 this.dashboardService.landUse(),
             ]);
 
@@ -42,9 +32,7 @@ export class DashboardController {
                 totalFarms: Number(totalFarms),
                 totalArea: Number(totalArea),
                 farmsByState,
-                areaByState,
                 farmsByCropsPlanted,
-                areaByCropsPlanted,
                 landUse,
             };
         } catch (error) {

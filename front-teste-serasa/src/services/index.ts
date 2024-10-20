@@ -17,9 +17,7 @@ export interface DashboardData {
     totalFarms: number
     totalArea: string
     farmsByState: Array<ValueByState>
-    areaByState: Array<ValueByState>
     farmsByCropsPlanted: Array<ValueByCrop>
-    areaByCropsPlanted: Array<ValueByCrop>
     landUse: LandUse
 }
 
@@ -33,7 +31,7 @@ export interface FarmerData {
     totalArea: number
     arableArea: number
     vegetationArea: number
-    cropsPlanted: string
+    cropsPlanted: string[]
     id: string
 }
 
@@ -47,7 +45,7 @@ export interface FarmerUpdateData {
     totalArea: number
     arableArea: number
     vegetationArea: number
-    cropsPlanted: string
+    cropsPlanted: string[]
 }
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3002/api/v1'

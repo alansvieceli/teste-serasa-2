@@ -32,33 +32,13 @@ export class FarmerPostgresqlService extends BaseService<FarmerEntity> {
             .getRawMany();
     }
 
-    async areaByState(): Promise<any> {
-        return this.getRepository()
-            .createQueryBuilder('farmers')
-            .select('farmers.state_code', 'state')
-            .addSelect('SUM(farmers.total_area)', 'count')
-            .groupBy('farmers.state_code')
-            .orderBy('SUM(farmers.total_area)')
-            .getRawMany();
-    }
-
     async farmsByCropsPlanted(): Promise<any> {
         return this.getRepository()
             .createQueryBuilder('farmers')
-            .select('farmers.crops_planted', 'crop')
+            .select('unnest(farmers.crops_planted)', 'crop') // Desnormaliza o array
             .addSelect('COUNT(farmers.id)', 'count')
-            .groupBy('farmers.crops_planted')
-            .orderBy('COUNT(farmers.id)')
-            .getRawMany();
-    }
-
-    async areaByCropsPlanted(): Promise<any> {
-        return this.getRepository()
-            .createQueryBuilder('farmers')
-            .select('farmers.crops_planted', 'crop')
-            .addSelect('SUM(farmers.arable_area)', 'count')
-            .groupBy('farmers.crops_planted')
-            .orderBy('SUM(farmers.arable_area)')
+            .groupBy('crop')
+            .orderBy('count', 'DESC')
             .getRawMany();
     }
 

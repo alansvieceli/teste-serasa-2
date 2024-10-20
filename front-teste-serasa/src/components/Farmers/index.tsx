@@ -79,7 +79,7 @@ const Farmers: React.FC = () => {
             totalArea: 0,
             arableArea: 0,
             vegetationArea: 0,
-            cropsPlanted: '',
+            cropsPlanted: [],
             id: '',
         }
         setSelectedFarm(farm)
@@ -121,6 +121,7 @@ const Farmers: React.FC = () => {
                     <Table>
                         <thead>
                             <tr>
+                                <th>Doc</th>
                                 <th>Nome Produtor</th>
                                 <th>Nome Fazenda</th>
                                 <th>Cidade</th>
@@ -135,6 +136,7 @@ const Farmers: React.FC = () => {
                         <tbody>
                             {farmers.map(farmer => (
                                 <tr key={farmer.id}>
+                                    <td>{farmer.documentType}</td>
                                     <td>{farmer.farmerName}</td>
                                     <td>{farmer.farmName}</td>
                                     <td>{farmer.city}</td>
@@ -142,7 +144,7 @@ const Farmers: React.FC = () => {
                                     <td>{farmer.totalArea}</td>
                                     <td>{farmer.arableArea}</td>
                                     <td>{farmer.vegetationArea}</td>
-                                    <td>{farmer.cropsPlanted}</td>
+                                    <td>{farmer.cropsPlanted.join(';')}</td>
                                     <td>
                                         <ActionButton onClick={() => handleEdit(farmer.id)}>
                                             <FaEdit />

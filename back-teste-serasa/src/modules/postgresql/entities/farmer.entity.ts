@@ -2,7 +2,6 @@ import { Column, Entity } from 'typeorm';
 import { BasePostgreSqlEntity } from './base.entity';
 import { DocumentTypeEnum } from '@common/enums/document_type.enum';
 import { StateCodeEnum } from '@common/enums/state.code.enum';
-import { CropsPlantedEnum } from '@common/enums/crops.planted.enum';
 import { AutoMap } from '@automapper/classes';
 
 @Entity({ name: 'farmers' })
@@ -74,9 +73,9 @@ export class FarmerEntity extends BasePostgreSqlEntity {
 
     @AutoMap()
     @Column({
-        type: 'enum',
-        enum: CropsPlantedEnum,
+        type: 'varchar',
+        array: true,
         nullable: false,
     })
-    cropsPlanted: CropsPlantedEnum;
+    cropsPlanted: string[];
 }

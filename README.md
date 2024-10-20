@@ -1,3 +1,33 @@
+## O que foi implementado
+
+Teste para vaga de desenvolvedor back-end, nãofoi solicitado fazer o front, mas acabei fazerndo pra facilitar a visualização dos graficos
+
+### Subir a Aplicação
+
+```bash
+  docker-compose up --build
+```
+
+Isso vai subir
+
+- Postgresql
+- Back-end - NestJS
+- Front-end - React
+
+### Swagger (back-end)
+
+```http
+  http://localhost:3002/swagger
+```
+
+### Front - end
+
+```http
+  http://localhost:3000
+```
+
+---
+
 # Teste - Brain Agriculture
 
 O teste tem como objetivo acurar as habilidades do candidato em resolver alguns problemas relacionados à lógica de programação, regra de negócio e orientação à objetos.
@@ -38,14 +68,17 @@ O mesmo consiste em um cadastro de produtor rural com os seguintes dados:
   - A criação das estruturas de dados "mockados" faz parte da avaliação.
 
 - O desenvolvedor back-end deve:
+
   - Salvar os dados em um banco de dados Postgres usando o NodeJS como layer de Backend, e entregar os endpoints para cadastrar, editar, e excluir produtores rurais, além do endpoint que retorne os totais para o dashboard.
   - A criação das estruturas de dados "mockados" faz parte da avaliação.
 
   Desejável:
+
   - TypeScript
   - Conceitos como SOLID, KISS, Clean Code, API Contracts, Tests, Layered Architecture
 
   Bonus:
+
   - Aplicação disponibilizada em algum cloud provider de sua preferência
 
 - O desenvolvedor full-stack deve realizar ambos, e concluir a integração.

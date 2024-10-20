@@ -33,19 +33,9 @@ export class DashboardService {
         return this.mapper.mapArrayAsync(entity, DashboardByStateEntity, DashboardByStateDto);
     }
 
-    async areaByState(): Promise<Array<DashboardByStateDto>> {
-        const entity = await this.farmerPostgresqlService.areaByState();
-        return this.mapper.mapArrayAsync(entity, DashboardByStateEntity, DashboardByStateDto);
-    }
-
     // Gráfico de pizza por cultura.
     async farmsByCropsPlanted(): Promise<Array<DashboardByCropDto>> {
         const entity = await this.farmerPostgresqlService.farmsByCropsPlanted();
-        return this.mapper.mapArrayAsync(entity, DashboardByCropEntity, DashboardByCropDto);
-    }
-
-    async areaByCropsPlanted(): Promise<Array<DashboardByCropDto>> {
-        const entity = await this.farmerPostgresqlService.areaByCropsPlanted();
         return this.mapper.mapArrayAsync(entity, DashboardByCropEntity, DashboardByCropDto);
     }
 
